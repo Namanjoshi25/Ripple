@@ -47,7 +47,7 @@ export const POST = async (request: Request) => {
 
   // Activitate Webhook in the Clerk Dashboard.
   // After adding the endpoint, you'll see the secret on the right side.
-  const wh = new Webhook(process.env.NEXT_CLERK_WEBHOOK_SECRET || "");
+  const wh = new Webhook(process.env.WEBHOOK_SECRET || "");
 
   let evnt: Event | null = null;
 
@@ -71,7 +71,7 @@ export const POST = async (request: Request) => {
 
     try {
       // @ts-ignore
-      await createCommunity(
+    const res =   await createCommunity(
         // @ts-ignore
         id,
         name,
@@ -80,7 +80,7 @@ export const POST = async (request: Request) => {
         "org bio",
         created_by
       );
-
+       console.log(res);
       return NextResponse.json({ message: "User created" }, { status: 201 });
     } catch (err) {
       console.log(err);
